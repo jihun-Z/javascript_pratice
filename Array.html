@@ -26,13 +26,46 @@
         //javascript는 만들고나서 정의를 한다.
         //java는 객체를 정의하고 만들지만
 
-        //json javaScript Object Notation(JSON)
-        var n = true;
-        varn= 3;
-        var s='hello';//var s="hello";
-        var exam={"kor":30,"eng":70,"math": 80};
+        //json javaScript Object Notation(JSON) 표현법
+
+        var n = true;//var n=new Boolean(true);
+        var n= 3;//var n=new Number();
+        var s='hello';//var s=new String("hello");
+        var ar=[];//var ar=new Array();
+        var ob={};//var ob= new Object();
+        var exam={"kor":30,"eng":70,"math": 80};//객체선언
         var ar=[3,4,5,6,exam,[7,8]];
         console.log(ar[5][1]);
+        console.log(ar[4].math);
+        var notice='{"id":1,"title":"hello"}';//객체가 아니라 문자열이다.
+        console.log(notice.title);
+        eval('var x= 30;');
+        
+        //eval은 문자열을 바꿔줘야하는데 그때쓰는 함수가 eval.
+        //이며 javascript를 실행해주는함수다 (parser를 해주는함수가 아님)
+        
+        var data='["co":06,"so2": 0.7]';
+        eval('var x= 30;');
+        console.log(x);//30이 출력됨 parsing을 해줌
+        eval("var r= "+data+" ;");//eval로 문자열이된 data를 파싱해줌 그러면 객체로 인식
+        console.log(ar[0].co);//06이 출력됨
+
+        //JSon parser
+        //json parse를 쓰게되면 key값을 ""로 감싸야한다.그래야 인식하는 규칙이있음
+        var date= JSON.parse('{"key":2,"title":"키"}');
+        console.log(date.title);
+
+        //json형식으로 바꾸기
+        var date1={id:2, title:"bbb"};//자바스크립트 객체
+
+        //변환하기 JSON.stringify
+            var json = JSON.stringify(date1);
+            alert(date1);
+
+    
+    
+    
+    
     </script>
 </body>
 </html>
