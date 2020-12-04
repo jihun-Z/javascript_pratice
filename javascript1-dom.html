@@ -4,35 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="">
     <script src="javascript1-dom.js"></script>
 </head>
 <body>
+  <section id="section6">
+     <h1>Ex6 노드조작: 메뉴추가(createTextNode,Element)</h1>
+     <div>
+       <input class="title-input" name="title"/>
+       <input type="button" class="add-button" value="추가">
+       <input type="button" class="del-button" value="삭제">
+     </div>
+      <!-- 텍스트노드 추가및 삭제 -->
+     <ul class="menu-list">
+
+      <li><a href="">aaa</a></li>
+      <li><a href="">bbb</a></li>
+     </ul>
+  </section>
+  <hr/>
   <section id="section5">
 
-      <h1>Ex5:엘리먼트 노드의 속성 변경</h1>
+      <h1>Ex5:엘리먼트 노드의 속성&& CSS 속성 변경</h1>
       <!-- datalist id 속성값을 input list에 똑같이설정하면 셀렉트문법처럼사용할수잇다. -->
       <input class="src-input" list="img-list"/>
       <datalist id="img-list">
-        <option value="img1.jpg">img1.jpg</option>
-        <option value="img2.jpg">img2.jpg</option>
-        <option value="img3.jpg">img3.jpg</option>
-        <option value="img4.jpg">img4.jpg</option>
+        <option value="lion.png">lion.png</option>
+        <option value="lion1.gif">lion1.git</option>
+        <option value="lion2.jpg">lion2.jpg</option>
     
       </dataList>
       <div class="box">
           <!-- dir="rtl" 디렉션을 받겟다는의미-->
         <input class="src-input" type="text"/>
         <select class="img-select">
-          <option value="img1.jpg">img1.jpg</option>
-          <option value="img2.jpg">img2.jpg</option>
-          <option value="img3.jpg">img3.jpg</option>
-          <option value="img4.jpg">img4.jpg</option>
+          <option value="lion.png">lion.png</option>
+          <option value="lion1.gif">lion1.git</option>
+          <option value="lion2.jpg">lion2.jpg</option>
+      
         </select>
-        <input class="change-button" type="text"/>
+        <input type="color" class="color-input"/>
+        <input class="change-button" type="button" value="변경하기"/>
     
       </div>
         <div>
-          <img class="img"/>
+          <img class="img" src="imges\lion1.gif" style="border:1px solid red;"/>
         </div>
       <hr/>
   <section id="section4">

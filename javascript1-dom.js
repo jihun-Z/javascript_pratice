@@ -1,3 +1,55 @@
+//Ex 6 :엘리먼트 노드의 속성 & css속성 변경
+window.addEventListener("load",function(){
+    var section=document.querySelector(".section6");
+    
+    var titleInput=document.querySelector(".title-input");
+    var menuListDiv=document.querySelector(".menu-list");
+    var addButton=document.querySelector(".add-button");
+    var delButton=document.querySelector(".del-button");
+    
+    addButton.onclick=function(){
+        var title=titleInput.value;
+        //누적연산자를쓰게되면 새건물을 짓는것처럼 없애고 새로만들고 하기때문에 더커진문자열로 되서 
+        //데이터사용량이 많아진다.
+        var html='<li><a href="">'+title+'</a></li>';
+        var li=document.createElement("li");
+        li.innerHTML=html;
+        //menuListDiv.appendChild(li);
+        menuListDiv.append(li);//apppend는 여러개의 ,node를 추가할수잇고 string | node를 할수도잇다.
+        //apppend는 여러개의 ,node를 추가할수잇고 string | node를 할수도잇다.
+        // var title=titleInput.value;
+        // var txtNode=document.createTextNode(title);
+        
+        // var aNode=document.createElement("a");
+        // aNode.href="adafadfa";
+        // aNode.appendChild(txtNode);
+
+        // var liNode=document.createElement("li");
+        // liNode.appendChild(aNode);
+
+        // menuListDiv.appendChild(liNode);
+
+
+        // var title=titleInput.value;
+        // var txtNode=document.createTextNode(title);
+        // menuListDiv.appendChild(txtNode);
+
+    };
+    delButton.onclick=function(){
+       // var txtNode=menuListDiv.childNodes[0];
+        //바로지워지지않는이유는 textNode로 감싸져잇기때문에 2번째이후에지워지는
+        //것이다.
+        var liNode=menuListDiv.children[0];
+       // menuListDiv.removeChild(liNode);
+       liNode.remove();//자기자신을 지우는거
+     
+
+    };
+})
+
+
+
+
 
 //Ex5:엘리먼트 노드의 속성 변경 select datalist로 node속성바꾸기
 window.addEventListener("load",function(){
@@ -6,11 +58,19 @@ window.addEventListener("load",function(){
     var imgSelect=document.querySelector(".img-select")
     var changeButton=document.querySelector(".change-button");
     var img=section.querySelector(".img");
+    var colorInput=document.querySelector(".color-input");
 
     changeButton.onclick= function(){
         alert("aa");
-        img.src="img/"+srcInput.value;
-       //img.src="imges/"+imgSelect.value;
+        img.src='imges/'+srcInput.value;
+       
+       
+        // CSS 속성 변경
+        //img.src="imges/"+imgSelect.value;
+      // img.style["border-color"]=colorInput.value;
+        img.style.borderColor=colorInput.value;
+        console.log(img.className);
+      
     }
  });
 
