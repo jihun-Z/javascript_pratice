@@ -1,3 +1,160 @@
+//Ex9-다중 노드선택 방법과 일괄삭제, 노드의 자리바꾸기
+window.addEventListener("load",function(){
+    var section=document.querySelector("#section9");
+    var noticeList=section.querySelector(".notice-list");
+    var tbody=section.querySelector("tbody");
+    var allCheckBox=section.querySelector(".overall-checkbox");
+    var delButton=section.querySelector("#section9 .del-button");
+    var swapButton=section.querySelector(".swap-button");
+
+    allCheckBox.onclick=function(){
+        var inputs=tbody.querySelectorAll("input[type='checkbox']");
+        
+        for(let i=0; i<inputs.length;i++)
+        inputs[i].checked=allCheckBox.checked;//boolean값을 쓰기위해서 checked속성을이용\
+        
+        
+        
+    };
+    
+    delButton.onclick=function(){
+        var inputs=tbody.querySelectorAll("input[type='checkbox']");
+
+        if(inputs[0].checked)
+        inputs[0].parentElement.parentElement.remove();
+
+
+    }
+    swapButton.onclick=function(){
+
+    };
+});
+
+
+
+
+
+
+
+
+
+
+
+//Ex8:노드 삽입과 바꾸기
+window.addEventListener("load",function(){
+    var notices=[
+        { id:"4",title:"퐈이양",regDate:"2019-10-1",writerId:"이지훈",hit:"17"}
+ ,
+        { id:"4",title:"퐈이양",regDate:"2019-10-1",writerId:"이지훈",hit:"17"}
+    ];
+    var section=document.querySelector("#section8");
+    var noticeList=section.querySelector(".notice-list");
+    var tbodyNodes=noticeList.querySelector("tbody");
+    var upButton=section.querySelector(".up-button");
+    var downButton=section.querySelector(".down-button");
+
+    var currentNode=tbodyNodes.firstElementChild;//.children[0]
+
+    downButton.onclick=function(){
+        var nextNode=currentNode.nextElementSibling;
+        //더이상 못내려갈때
+        if(nextNode==null){
+
+            alert("더 이상 이동할수없습니다.");
+            return;
+        }
+       // tbodyNodes.removeChild(nextNode);
+       // tbodyNodes.insertBefore(nextNode,currentNode);
+        currentNode.insertAdjacentElement("beforebegin",nextNode);
+   
+   
+    };
+    
+    upButton.onclick=function(){
+        var prevNode=currentNode.previousElementSibling;
+        if(prevNode==null){
+            alert("더이상 위로갈수없습니다.");
+            return;
+        }
+        //tbodyNodes.removeChild(currentNode);
+        //tbodyNodes.insertBefore(currentNode,prevNode);
+        currentNode.insertAdjacentElement("afterend",prevNode);
+    };
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+//Ex 7 :엘리먼트 노드의 속성 & Css속성변경
+window.addEventListener("load",function(){
+    var notices=[
+        {id:5, title:"퐈이야~",regDate:"2019-01-26",writerId:"이지훈", count:"1"},
+        {id:6, title:"형이야~",regDate:"2019-01-27",writerId:"이지훈", count:"33"}
+    ];
+
+    var section=document.querySelector("#section7");
+
+    var noticeList=section.querySelector(".notice-list");
+    var tbodyNode=noticeList.querySelector("tbody");
+    var cloneButton=section.querySelector(".clone-button");
+    var templateButton =section.querySelector(".template-button");
+
+    cloneButton.onclick=function(){
+        //cloneNode(false)이면 tr까지만복사,cloneNode(true)이면wkthsRkwlqhrtk
+        var trNode=noticeList.querySelector("tbody tr");
+        var cloneNode=trNode.cloneNode(true);
+        //오버나이드된 객체 삽입하기 tr>td객체 복사
+        var tds=cloneNode.querySelectorAll("td");
+        tds[0].textContent=notices[0].id;
+   tds[1].innerHTML='<a href="'+notices[0].id+'">'+notices[0].title+'</a>';
+        tds[2].textContent=notices[0].regDate;
+        tds[3].textContent=notices[0].writerId;
+        tds[4].textContent=notices[0].count;
+
+        tbodyNode.appendChild(cloneNode);
+
+    };
+    templateButton.onclick=function(){
+        var template=section.querySelector("template");
+        var cloneNode=document.importNode(template.content,true);
+        var tds=cloneNode.querySelectorAll("td");
+       
+       for(let i=0;i<=notices.length;i++){
+
+           tds[0].textContent=notices[i].id;
+          // tds[1].innerHTML='<a href="'+notices[0].id+'">'+notices[0].title+'</a>';
+           var aNode=tds[1].children[0];
+           aNode.href=notices[i].id;
+           aNode.textContent=notices[i].title;
+          
+          
+          tds[2].textContent=notices[i].regDate;
+           tds[3].textContent=notices[i].writerId;
+           tds[4].textContent=notices[i].count;
+   
+           tbodyNode.append(cloneNode);
+       }
+    };
+
+
+
+
+
+
+})
+
+
+
+
 //Ex 6 :엘리먼트 노드의 속성 & css속성 변경
 window.addEventListener("load",function(){
     var section=document.querySelector(".section6");
@@ -41,7 +198,7 @@ window.addEventListener("load",function(){
         //것이다.
         var liNode=menuListDiv.children[0];
        // menuListDiv.removeChild(liNode);
-       liNode.remove();//자기자신을 지우는거
+    //  liNode.remove();//자기자신을 지우는거
      
 
     };
