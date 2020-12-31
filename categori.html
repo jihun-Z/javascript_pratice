@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<script>
+
+    var number1=document.querySelector('.number1');
+    var number2=document.querySelector('.number2');
+  
+</script>
+<body>
+    <li><a href="${path }/product/into.do">
+        <div>
+            <div>
+                <img src="${path }/resources/images/profile/blind.png" alt="" />
+            </div>
+            <p>카테고리</p>
+        </div>
+</a></li>
+<input type="text" class="number1" placeholder="수량" readonly>
+<input type="text" class="number2" placeholder="수량">
+
+<select name="select" id="select">
+    <option value="1" >1</option>
+    <option value="2">2</option>
+    <option value="3" selected="selected">3</option>
+</select>
+
+<script>
+
+    var tbIndex = document.getElementById("TB_CORP_CD").options.selectedIndex;
+    (tb.options[tbIndex].value)
+  alert($("#select option:checked").val());
+  alert($("#select option:checked").text());
+
+   //체크시 가격올리기 
+   $(document.body).on("click",".checkbox",function(e){
+	    		let totalSum=0;
+	    		alert("클릭");
+	    		 totalSum= Number($(".totalPrice").text());
+	    		 let productCart=$(this).closest(".product-cart");
+	    		 const amount=productCart.find("#amount");
+	    		 const productPrice=productCart.find("#product--price");
+				  let onePrice=0;
+			  if($("input[name=cartCheck]:checked"==true)){
+			
+				    let sum=0;//담을 값을 선언해준다.
+				   $("input[name=cartCheck]:checked").each(function(i){
+				    				sum +=Number(productPrice.val());
+				    				console.log(sum);
+				    				$(".totlaPrice").text(sum);	
+				   });
+			  }else{
+				  alert("선택해제!");
+				    let sum=0;//담을 값을 선언해준다.
+				    $("input[name=cartCheck]").each(function(i){
+				    				sum +=(Number(amount.val()))*(Number(productPrice.val()));
+				    				console.log(sum);
+				    				$(".totlaPrice").text(sum);	
+				    });
+			  }
+			});
+</script>
+</body>
+</html>

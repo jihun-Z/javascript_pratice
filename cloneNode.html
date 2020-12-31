@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <script src="cloneNode.js"></script>
+</head>
+<body>
+
+    <div class="order-product" style="border:1px solid black;background-color:pink">
+        <p style="color:red;">A p element</p>
+        <p style="color:green;">A p element</p>
+        <p style="color:blue;">A p element</p>
+      </div>
+      
+      <p>Click the button to copy the div element above, including all its attributes and child elements, and append it to the document.</p>
+      
+      <button onclick="cartBtn()">Try it</button>
+      <p class="price2">5000</p>
+      <div class="order-product">
+        <div class="order-container">
+        <h4><c:out value="${p.PRODUCT_NAME}"/></h4>
+        <div class="product-price">
+            <input type="button" class="minus" value="-"/>
+            <input type="number" name="count" class="number" value="1" readonly>
+            <input type="button" class="plus" value="+"/>
+       </div>
+      <div class="price-text">
+            <p><span class="text-left">가격</span> <input id="pprice" value="" class="text-right" readonly/></p>
+            
+      </div>
+    </div>   
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div class="totalFn">
+        <div class="count-box">
+            <button type="button" class="minus">빼기</button>
+            <span class="num">0</span>
+            <button type="button" class="plus">더하기</button>
+        </div>
+        <div class="count-box">
+            <button type="button" class="minus">빼기</button>
+            <span class="num">0</span>
+            <button type="button" class="plus">더하기</button>
+        </div>
+        <div class="count-box">
+            <button type="button" class="minus">빼기</button>
+            <span class="num">0</span>
+            <button type="button" class="plus">더하기</button>
+        </div>
+        <!-- 합계 -->
+        <div class="total-area">
+            <span>Total =</span>
+            <strong class="count-total">0</strong>
+        </div>
+        <!-- // 합계 -->
+    </div>
+</body>
+</html>
+ <script src="">
+
+       // 인원 체크 토탈
+       function countBtn(){
+           var $wrap = $('.totalFn'), 
+               $btnMinus = $wrap.find('.minus'),
+               $btnPlus = $wrap.find('.plus');
+               $cell = $wrap.find('.cell');
+                
+           $btnMinus.on('click', function(e){
+               var $this = $(this);
+               var num = $this.parent().find('.num').text();
+               num --;
+               if (num <= 0) {
+                   num = 0;
+               }
+               $this.parent().find('.num').text(num);
+               totalFn();
+           });
+        
+           $btnPlus.on('click', function(){
+               var $this = $(this);
+               var num = $this.parent().find('.num').text();
+               num ++;
+               if (20 <= num) {
+                   num = 20; // 최대 인원수 
+               }
+               $this.parent().find('.num').text(num);
+               totalFn();
+           });
+        
+           function totalFn(){
+               var $total = $(".totalFn .count-box")
+               var total = 0;
+               $total.find(".num").each(function(){ 
+                   total += Number($(this).text());
+               });
+               $(".count-total").text(total);
+           };
+       }
+       allCheckInBox.onclick=function(){
+    	const inputs=cartContainer.querySelectorAll("input[type='checkbox']");
+    	alert("진짜냐");
+    		if($("input:checkbox[name=cartCheck]").is(":checked") ==false){
+    			$("input[type='checkbox']").prop("checked",true);
+    			console.log("1");
+    		}else {
+    			$("input[type='checkbox']").prop("checked",false);
+    			 $(".totlaPrice").text(0);//총가격
+            }
+            
+            $(document.body).on("click","#plus",function(){
+	
+    let productCart=$(this).closest(".product-cart");//전체를 감싸는 div
+    const amount=productCart.find("#amount");//수량
+    let cheprice=productCart.find(".checkbox");//체크박스
+    let inputs=productCart.find("input[name=cartCheck]");//input 태그 
+    let totalPrice=$(".totlaPrice");//총가격
+    const n=amount.val();//수량
+    const sum=Number(n)+1;
+    amount.val(sum);
+    const price=productCart.find("#product-price");
+    const changePrice=parseFloat(price.val());
+    const total=productCart.find("#product--price");//개당 가격
+    console.log("plus");
+    const totalprice=Number(total.val());
+    price.val(sum*totalprice);//총가격 
+    cheprice.val(sum*totalprice);
+    if(inputs.is(":checked")==true){
+       alert("안되냐?");
+       totalPrice.text(sum*totalprice);
+    }else if(inputs.is(":checked")==true && Number(totalPrice.text()) !== 0){
+        totalPrice.text(Number(totalPrice.text())+(sum*totalprice));
+    }else{
+        totalPrice.text(0);
+    }
+});
+$(document.body).on("click","#minus",function(){
+   
+    let productCart=$(this).closest(".product-cart");
+    let amount=productCart.find("#amount");
+    let cheprice=productCart.find(".checkbox");
+    let inputs=productCart.find("input[name=cartCheck]");
+    let totalPrice=$(".totlaPrice");
+    let n=amount.val();//수량
+    let sum=Number(n)-1;
+    if(sum>0){
+    amount.val(sum);
+    const price=productCart.find("#product-price");
+    const changePrice=parseFloat(price.val());
+    const total=productCart.find("#product--price");
+    console.log("minus");
+    const totalprice=Number(total.val());
+    price.val(sum*totalprice);//총가격 
+    cheprice.val(sum*totalprice); 
+    
+    if(inputs.is(":checked")==true){
+           alert("안되냐?");
+           console.log(sum*totalprice);
+           totalPrice.text(sum*totalprice);
+        }
+    }else return;
+});
+
+ 
+$(document).ready(function(){
+    //로드될때
+    $(".tab_content").hide();//모든탭을 숨겨~~
+    $('ul.tabs li:first').addClass("active").show();//액티브된 처음탭보여줘
+    $('.tab_content:first').show();//show first tab content
+
+    //On Click Event
+    $("ul.tabs li").click(function(){
+        $('ul.tabs li').removeClass('active');//Remove any 'active' class
+        $(this).addClass('active').attr('color','blue');//셀렉트된탭을 active해라
+        $('.tab_content').hide();//Hide all tab content
+
+        var activeTab=$(this).find('a').attr('href');
+        $(activeTab).fadeIn();//Fade in the active ID content
+        return false;
+    });
+});
+//ajax 개별상품 삭제
+function deleteBtn(event){
+	const productNo=$("#productNo").val();
+	const memberKey=$("#memberKey").val();
+	 
+	  $.ajax({
+		  url:"${path}/cart/delete.do",
+		  type:"POST",
+		  data:{
+			  "productNo":productNo,
+			  "memberKey":memberKey
+		  },
+		  success:function(data){
+			  alert("상품이 삭제되었습니다.");
+			 const cartContainer=document.querySelector(".cart-container");
+			 const productCart=cartContainer.querySelector(".product-cart");
+			 productCart.onclick=(e)=>{
+				 const tag=e.target;
+				 e.preventDefalut;
+				 if(tag.nodeName !="INPUT") return;
+				 //같은 이름의 클래스를 포함하고있느지를 물어볼때는 classList.contains='클래스이름'
+				if(tag.classList.contains("btn btn-primary2")){
+					const tr=tag.parentElement;
+					for(;tr.className != "cart-container"; tr=tr.parentElement);
+						tr.parentElement.parentElement.remove();
+				}				 
+			 }
+			 
+		  }
+	  })
+};
+ //플러스 수량더하기  
+/*  $(function(){
+	$("#plus").click(function(){
+		let n=$("#plus").index(this);//자기자신을 가르킨다.
+		let num=$("#amount:eq("+n+")").val();
+		num=$("#amount:eq("+n+")").val(num*1+1);
+		console.log(num);
+	});
+	$("#minus").click(function(){
+		let n=$("#minus").index(this);//자기자신을 가르킨다.
+		let num=$("#amount:eq("+n+")").val();
+			num=$("#amount:eq("+n+")").val(num*1-1);
+	});
+	
+})*/
+$(document.body).on("click","#plus",function(){
+	
+	 let productCart=$(this).closest(".product-cart");//전체를 감싸는 div
+	 const amount=productCart.find("#amount");//수량
+	 let cheprice=productCart.find(".checkbox");//체크박스
+	 let inputs=productCart.find("input[name=cartCheck]");//input 태그 
+	 let totalPrice=$(".totlaPrice");//총가격
+	 const n=amount.val();//수량
+	 const sum=Number(n)+1;
+	 amount.val(sum);
+	 const price=productCart.find("#product-price");
+	 const changePrice=parseFloat(price.val());
+	 const total=productCart.find("#product--price");//개당 가격
+	 console.log("plus");
+	 const totalprice=Number(total.val());
+	 price.val(sum*totalprice);//총가격 
+	 cheprice.val(sum*totalprice);
+	 if(inputs.is(":checked")==true){
+		alert("안되냐?");
+		totalPrice.text(sum*totalprice);
+	 }else if(inputs.is(":checked")==true && Number(totalPrice.text()) !== 0){
+		 totalPrice.text(Number(totalPrice.text())+(sum*totalprice));
+	 }else{
+		 totalPrice.text(0);
+	 }
+});
+$(document.body).on("click","#minus",function(){
+	
+	 let productCart=$(this).closest(".product-cart");
+	 let amount=productCart.find("#amount");
+	 let cheprice=productCart.find(".checkbox");
+	 let inputs=productCart.find("input[name=cartCheck]");
+	 let totalPrice=$(".totlaPrice");
+	 let n=amount.val();//수량
+	 let sum=Number(n)-1;
+	 if(sum>0){
+	 amount.val(sum);
+	 const price=productCart.find("#product-price");
+	 const changePrice=parseFloat(price.val());
+	 const total=productCart.find("#product--price");
+	 console.log("minus");
+	 const totalprice=Number(total.val());
+	 price.val(sum*totalprice);//총가격 
+	 cheprice.val(sum*totalprice); 
+	 
+	 if(inputs.is(":checked")==true){
+			alert("안되냐?");
+			console.log(sum*totalprice);
+			totalPrice.text(sum*totalprice);
+		 }
+	 }else return;
+});
+
+ 
+/* function plusUp(e,productNo){
+const amount=$("#amount").val();// 양
+const ss=$("#amount"+productNo).val(Number(amount)+1);
+console.log(ss);
+ $.ajax({
+	url:"${path}/cart/addToAmount",
+	type:"POST",
+	data:{
+		"productNo":productNo,
+		"memberKey":memberKey,
+		"amount": 1
+	},
+	success:(data)=>{
+		successRoutine(data);
+		cartSuccessRoutine(data,productNo,$("#amount"+productNo).val());
+	},
+	fail: error =>{
+		console.log(error);
+	}
+}); 
+};
+
+//minus클릭시
+function minusDown(e,poductNo){
+	let amount=$("#amount").val();// 양
+	const ss=$("#amount"+productNo).val(Number(amount)-1);
+	console.log(ss);
+	$.ajax({
+		url:"${path}/cart/minusToAmount",
+		type:"POST",
+		data:{
+			"productNo":productNo,
+			"memberKey":memberKey,
+			"amount":1
+		},
+		success:(data)=>{
+			successRoutine(data);
+			cartSuccessRoutine(data,productNo,$("#amount"+productNo).val());
+		},
+		fail: error =>{
+			console.log(error);
+		}
+	});
+	};
+ */
+     
+    //자바스크립트  체크박스선택
+    const cartContainer=document.querySelector(".cart-container");//장바구니 감싸는 container
+    const productCart=cartContainer.querySelector(".product-cart");//상품
+    const allCheckInBox=document.querySelector("#checkbox");//체크박스버튼
+    const delBtn=cartContainer.querySelector("cart--deleteBtn");//삭제버튼
+    const checkbox=cartContainer.querySelector(".checkbox");//input checkbox
+    
+    allCheckInBox.onclick=function(){
+    	const inputs=cartContainer.querySelectorAll("input[type='checkbox']");
+    	alert("진짜냐");
+    		if($("input:checkbox[name=cartCheck]").is(":checked") ==false){
+    			$("input[type='checkbox']").prop("checked",true);
+    			console.log("1");
+    		}else {
+    			$("input[type='checkbox']").prop("checked",false);
+    			 $(".totlaPrice").text(0);
+    		}
+    		//	for (let i=0; i<inputs.length;i++)
+	        //		inputs[i].checked=allCheckInBox;//boolean값을 쓰기위해서 checked속성을 이용
+    		//	console.log("true");
+    		
+	    //체크박스 선택시 총 가격구하기
+	    //checkbox의 name값이 current_product이면서 체크되어 있는 함수를 each함수로 호출한다. 
+	    
+	    let sum=0;//담을 값을 선언해준다.
+	    $("input[name=cartCheck]:checked").each(function(i){
+	    				sum +=Number($(this).val());
+	    				console.log(sum);
+	    				$(".totlaPrice").text(sum);	
+	    });
+    };      
+	              const open1=document.getElementById("modalOpen");
+                  const close1=document.getElementById("modalClose");
+                  const send=document.getElementById("modalSend");
+                  const modal1=document.querySelector(".modal-wrapper");
+			//구매버튼 이벤트 
+			$(document.body).on("click","#orderToPay",function(){
+				if($("input:checkbox[name=cartCheck]").is(":checked") ==true){
+	    			$("")
+	    		}
+			});	
+				
+				
+   </script>
