@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script> 
+<script> 
+    var date; 
+
+    $(document).ready(function () { 
+        startDate(); 
+    }); 
+
+    function startDate() { 
+        date = setInterval(function () { 
+            var dateString = "Today's date is: "; 
+
+            var newDate = new Date(); 
+          
+
+            //String.slice(-2) : 문자열을 뒤에서 2자리만 출력한다. (문자열 자르기) 
+            dateString += newDate.getFullYear() + "/"; 
+            dateString += ("0" + (newDate.getMonth() + 1)).slice(-2) + "/"; //월은 0부터 시작하므로 +1을 해줘야 한다. 
+            dateString += ("0" + newDate.getDate()).slice(-2) + " "; 
+            dateString += ("0" + newDate.getHours()).slice(-2) + ":"; 
+            dateString += ("0" + newDate.getMinutes()).slice(-2) + ":"; 
+            dateString += ("0" + newDate.getSeconds()).slice(-2);
+            //document.write(dateString); 문서에 바로 그릴 수 있다.
+            $("#date").text(dateString); 
+        }, 1000); 
+    } 
+
+    function stopDate() { 
+        clearInterval(date); 
+    } 
+
+    //setInterval(function(){},1000); 해당 시간마다 (1초마다) 반복 된다. 
+    //setTimeout(function(){},1000); 해당 시간뒤 (1초뒤) 한번만 실행된다. 
+    //clearInterval(); 반복정지 
+</script> 
+
+<!DOCTYPE html> 
+
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head runat="server"> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+    <title></title> 
+</head> 
+<body> 
+    <div> 
+        <div id="date"></div> 
+        <button onclick="startDate()">시작</button> 
+        <button onclick="stopDate()">정지</button> 
+    </div> 
+</body> 
+</html>
+</body>
+</html>

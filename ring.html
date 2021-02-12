@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<script defer>
+    Notification.requestPermission().then(function(result){
+        console.log(result);
+    });
+
+    function askNotificationPermission(){
+        //권한을 실제로 요구하는 함수
+        function handlePermission(permission){
+            //사용자의 응답에 관계없이 크롬이 정보를 저장할수있도록 함
+            if(!('permission' in Notification)){
+            }
+            //사용자 응답에 따라 단추를 보이거나 숨기도록 설정
+            if(Notication.permission === 'denied' || Notification.permission ==='default'){
+                notificationBtn.style.display='block';
+            }else {
+                notificationBtn.style.display='none';
+            }
+        }
+        //브라우저가 알림을 지원하는 지 확인
+        if(!('Notification' in window)){
+            console.log("이 브라우저는 알림을 지원하지않습니다.");
+        }else{
+            if(checkNotificationPromise()){
+                Notification.requestPermission().then((permission) => {
+                    handlePermission(permission);
+                })
+            }else{
+                Notification.requestPermission(function(permission){
+                    handlePermission(permission);
+                });
+            }
+        }
+    }
+
+    //프로미스버전을 지원하는지확인하는 함수
+    function checkNotificationPromise(){
+        try{
+            Notification.requestPermission().then();
+        }catch(e){
+            return false;
+        }
+        return true;
+    }
+//알림 실행
+    window.addEventListener('load',function(){
+        //처음에는 알림권한이 있는지 확인함
+        //없으면 권한 요구
+        if(Notification && Notification.permission !=='granted'){
+            Notification.requestPermission(function(status){
+                if(Notification.permission !== status){
+                    Notification.permission =status;
+                }
+            });
+        }
+        var button = document.getElementsByTagName('button')[0];
+
+        button.addEventListener('click',function(){
+            //사용자가 알림을 받는데 동의한 경우
+            //알림 10개를 내보낸다.
+            if(Notification && Notification.permission ==='granted'){
+                var i = 0;
+                // 어떤 브라우저( 파이어폭스등)일정시간동안 알림이 많으면 차단하기때문에  인터벌 사용.
+                var interval=window.setInterval(function(){
+                    //태그 덕분에 '안녕! 9' 알림만 보여야함
+                    var n = new Notification("안녕!"+i,{tag:'알림너무많음'});
+                    if(i++ == 9){
+                        window.clearInterval(interval);
+                    }
+                },200);
+            }
+            //사용자가 알림을 받을지 말지 답하지않은 경우
+            // 참고 : 크롬때문에 권한 속성이 설정됐는지 알수 없으므로
+            // '기본' 값을 확인하는것은 안전하지않음
+            else if(Notification && Notification.permission !== "denied"){
+                Notification.requestPermission(function (status){
+                    //사용자가 ok한 경우
+                    if(status === 'granted'){
+                        var i = 0;
+                        // 어떤 브라우저(파이어폭스)는 일정시간동안 알림이 너무많은경우 차단하기때문에 인터벌을 사용
+                        var interval = window.setInterval(function(){
+                            //태그 덕분에 '안녕! 9'알림만 보여야함
+                            var n= new Notification("안녕!"+i,{tag:'알림너무많음'});
+                            if(i++ ==9){
+                                window.clearInterval(interval);
+                            }
+                        },200);
+                    }
+                    //그외의 경우 일반적인 모달 alert로 폴백
+                    else{
+                        alert('안녕!');
+                    }
+                });
+            }
+            //사용자가 알림을 거부한 경우
+            else{
+                //일반적인 모달 alert로 폴백
+                alert('안녕!');
+            }
+        });
+    });
+</script>
+<body>
+    <!-- <button id="enable">알림 허용</button> -->
+    <button>알림 실행!</button>
+</body>
+</html>
